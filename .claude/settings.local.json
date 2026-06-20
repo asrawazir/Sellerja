@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(cd \"C:\\\\Users\\\\rajam\\\\desktop\\\\sellerja-website\"; $proc = Start-Process -FilePath \"node\" -ArgumentList \"server/index.js\" -PassThru -RedirectStandardOutput \"out.txt\" -RedirectStandardError \"err.txt\"; Start-Sleep -Seconds 4; Get-Content \"out.txt\"; Get-Content \"err.txt\"; $proc.Kill\\(\\))",
+      "PowerShell(cd \"C:\\\\Users\\\\rajam\\\\desktop\\\\sellerja-website\"; $proc = Start-Process -FilePath \"node\" -ArgumentList \"server/index.js\" -PassThru; Start-Sleep -Seconds 3; $r1 = Invoke-RestMethod \"http://localhost:3000/api/products\" -Method GET; Write-Output \"Product count: $\\($r1.Count\\)\"; Write-Output \"First product: $\\($r1[0].name\\) - $\\($r1[0].price\\)\"; $r2 = Invoke-RestMethod \"http://localhost:3000/api/products?category=Electronics\" -Method GET; Write-Output \"Electronics count: $\\($r2.Count\\)\"; $proc.Kill\\(\\))",
+      "PowerShell(cd \"C:\\\\Users\\\\rajam\\\\desktop\\\\sellerja-website\"; $proc = Start-Process -FilePath \"node\" -ArgumentList \"server/index.js\" -PassThru; Start-Sleep -Seconds 3; $body = '{\"name\":\"Test User\",\"email\":\"test@sellerja.com\",\"password\":\"test123\"}'; $r = Invoke-RestMethod \"http://localhost:3000/api/auth/register\" -Method POST -Body $body -ContentType \"application/json\"; Write-Output \"Registered: $\\($r.user.name\\)\"; Write-Output \"Token present: $\\($r.token.Length -gt 0\\)\"; $token = $r.token; $headers = @{ Authorization = \"Bearer $token\" }; $cartBody = '{\"product_id\":1,\"quantity\":2}'; $rc = Invoke-RestMethod \"http://localhost:3000/api/cart\" -Method POST -Body $cartBody -ContentType \"application/json\" -Headers $headers; Write-Output \"Cart add: $\\($rc.success\\)\"; $cart = Invoke-RestMethod \"http://localhost:3000/api/cart\" -Method GET -Headers $headers; Write-Output \"Cart items: $\\($cart.Count\\), qty: $\\($cart[0].quantity\\)\"; $proc.Kill\\(\\))"
+    ]
+  }
+}

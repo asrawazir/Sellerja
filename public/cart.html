@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — Sellerja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">Sellerja</a>
+
+    <div class="header-search">
+      <span class="search-icon">⌕</span>
+      <input type="search" placeholder="Search products..." autocomplete="off"
+             onkeydown="if(event.key==='Enter'){window.location.href='/?search='+encodeURIComponent(this.value)}">
+    </div>
+
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/orders.html" class="nav-link">Orders</a>
+      <a href="/cart.html" class="cart-link">
+        🛒 Cart
+        <span class="cart-badge" id="cart-badge">0</span>
+      </a>
+      <span id="user-greeting" class="nav-link" style="display:none;color:var(--text-muted)"></span>
+      <div id="auth-area"></div>
+    </nav>
+  </div>
+</header>
+
+<main class="page-wrapper">
+  <div class="page-title-bar">
+    <h1>🛒 Shopping Cart</h1>
+  </div>
+  <div id="cart-container"></div>
+</main>
+
+<footer class="footer">
+  <p>© 2024 <strong>Sellerja</strong>. All rights reserved.</p>
+</footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/cart.js"></script>
+</body>
+</html>

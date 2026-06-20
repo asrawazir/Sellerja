@@ -1,0 +1,2 @@
+Database seeded with 12 products.
+Sellerja server running at http://localhost:3000

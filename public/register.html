@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Sellerja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .btn-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(0,0,0,0.3);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+    }
+
+    .password-strength {
+      margin-top: 8px;
+      display: flex;
+      gap: 4px;
+    }
+
+    .strength-bar {
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+
+    .strength-bar.filled-weak { background: var(--error); }
+    .strength-bar.filled-medium { background: var(--warning); }
+    .strength-bar.filled-strong { background: var(--success); }
+  </style>
+</head>
+<body>
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <a href="/" style="font-size:2rem;font-weight:900;
+        background:linear-gradient(135deg,var(--accent),var(--accent-light));
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        filter:drop-shadow(0 0 16px rgba(245,166,35,0.5));text-decoration:none;">Sellerja</a>
+      <p>Join thousands of happy shoppers</p>
+    </div>
+
+    <h2>Create Account</h2>
+    <p class="subtitle">Start shopping in seconds — it's free</p>
+
+    <div class="error-message" id="register-error" style="display:none;">
+      <span>⚠</span> <span id="register-error-text"></span>
+    </div>
+
+    <form id="register-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="name">Full Name</label>
+        <input class="form-input" type="text" id="name" name="name"
+               placeholder="John Doe" autocomplete="name" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input class="form-input" type="email" id="email" name="email"
+               placeholder="you@example.com" autocomplete="email" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-input" type="password" id="password" name="password"
+               placeholder="At least 6 characters" autocomplete="new-password" required
+               oninput="updateStrength(this.value)">
+        <div class="password-strength">
+          <div class="strength-bar" id="sb1"></div>
+          <div class="strength-bar" id="sb2"></div>
+          <div class="strength-bar" id="sb3"></div>
+          <div class="strength-bar" id="sb4"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="confirm_password">Confirm Password</label>
+        <input class="form-input" type="password" id="confirm_password" name="confirm_password"
+               placeholder="Repeat your password" autocomplete="new-password" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top:8px;">
+        Create Account
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Already have an account?
+      <a href="/login.html">Sign in</a>
+    </div>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+  function updateStrength(val) {
+    const bars = [document.getElementById('sb1'), document.getElementById('sb2'),
+                  document.getElementById('sb3'), document.getElementById('sb4')];
+    bars.forEach(b => b.className = 'strength-bar');
+
+    let score = 0;
+    if (val.length >= 6) score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+    if (/[^a-zA-Z0-9]/.test(val)) score++;
+
+    const cls = score <= 1 ? 'filled-weak' : score <= 2 ? 'filled-medium' : 'filled-strong';
+    bars.slice(0, score).forEach(b => b.classList.add(cls));
+  }
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const textEl = document.getElementById(id + '-text');
+    if (textEl) textEl.textContent = msg;
+    el.style.display = 'flex';
+  }
+</script>
+</body>
+</html>
