@@ -81,7 +81,7 @@ The app runs at **http://localhost:3000**
 ## Project Structure
 
 ```
-sellerja/
+Sellerja/
 ├── server/
 │   ├── index.js              Express entry point
 │   ├── db.js                 SQLite setup & seed data
